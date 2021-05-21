@@ -1,4 +1,4 @@
-/*************************************************** 
+  /*************************************************** 
   This is an example sketch for our optical Fingerprint sensor
 
   Designed specifically to work with the Adafruit BMP085 Breakout 
@@ -18,13 +18,13 @@
 
 // On Leonardo/Micro or others with hardware serial, use those! #0 is green wire, #1 is white
 // uncomment this line:
-#define mySerial Serial
+//#define mySerial Serial
 
 // For UNO and others without hardware serial, we must use software serial...
 // pin #2 is IN from sensor (GREEN wire)
 // pin #3 is OUT from arduino  (WHITE wire)
 // comment these two lines if using hardware serial
-//SoftwareSerial mySerial(2, 3);
+SoftwareSerial mySerial(2, 3);
 
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
