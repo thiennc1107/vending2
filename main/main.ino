@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <Adafruit_Fingerprint.h>
 #define mySerial Serial1
-LiquidCrystal_I2C lcd(0x3F,20,4);
+LiquidCrystal_I2C lcd(0x3F,16,2);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 const byte rows = 4; //số hàng
 const byte columns = 4; //số cột
@@ -36,10 +36,10 @@ void setup() {
   finger.begin(57600);
   delay(5);
   if (finger.verifyPassword()) {
-    lcd.setCursor(2,0);
+    lcd.setCursor(0,0);
     lcd.print("Nhap van tay");
   } else {
-    lcd.setCursor(2,0);
+    lcd.setCursor(0,0);
     lcd.print("Khong tim thay cam bien van tay");
     while (1) { delay(1); }
   }
@@ -56,7 +56,7 @@ void loop() {
   if (verifyFingerprint() ==1)
   {
     int ID = finger.fingerID;
-    lcd.setCursor(2,0);
+    lcd.setCursor(0,0);
     lcd.print("Nhap so    ");
     lcd.setCursor(1,2);
     lcd.print("00");
@@ -104,20 +104,20 @@ void loop() {
     String stringNumber = String(number);
     if(number <10)
     {
-      lcd.setCursor(2,2);
+      lcd.setCursor(2,1);
       lcd.print(stringNumber);
-      lcd.setCursor(1,2);
+      lcd.setCursor(1,1);
       lcd.print("0");
     }
     else 
     {
-      lcd.setCursor(1,2);
+      lcd.setCursor(1,1);
       lcd.print(stringNumber);
     }
   }
  void drop()
 {
-  lcd.setCursor(0,3);
+  lcd.setCursor(0,0);
   lcd.print("vui long doi");
   digitalWrite(number+21,LOW);
   while(digitalRead(11)==1&&digitalRead(10)==1)
@@ -125,7 +125,7 @@ void loop() {
     delay(10);
   }
   digitalWrite(number+21,HIGH);
-  lcd.setCursor(0,3);
+  lcd.setCursor(0,0);
   lcd.print("            ");
   number = 0;
 }
