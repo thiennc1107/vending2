@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <Adafruit_Fingerprint.h>
 #define mySerial Serial1
-LiquidCrystal_I2C lcd(0x3F,16,2);
+LiquidCrystal_I2C lcd(0x27,16,2);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 const byte rows = 4; //số hàng
 const byte columns = 4; //số cột
@@ -13,6 +13,7 @@ int holdDelay = 700; //Thời gian trễ để xem là nhấn 1 nút nhă�
 int n = 3; // 
 int state = 0; //nếu state =0 ko nhấn,state =1 nhấn thời gian nhỏ , state = 2 nhấn giữ lâu
 char key = 0;
+
 
  
 //Định nghĩa các giá trị trả về
@@ -29,15 +30,118 @@ byte columnPins[columns] = {5, 4, 3, 2};
 int number =0;
 //cài đặt thư viện keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, columnPins, rows, columns);
+int verifyFingerprint() {
+  uint8_t p = finger.getImage();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  p = finger.image2Tz();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  p = finger.fingerFastSearch();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  p = finger.confidence ;
+  if( p <50) return -1;
+
+  return 1;
+}
+
+void enrollFingerprint()
+{
+  int id = number;
+  Serial.println(id);
+  if(id>127){
+    lcd.setCursor(0,0);
+    lcd.print("qua tai bo nho");
+  }
+  int p = -1;
+  lcd.setCursor(0,0);
+  lcd.print("dang ghi     "); 
+  lcd.print(id);
+  while (p != FINGERPRINT_OK) {
+    p = finger.getImage();
+  }
+  p = finger.image2Tz(1);
+  if (p != FINGERPRINT_OK){
+    lcd.setCursor(0,0);
+    lcd.print("            ");
+    lcd.setCursor(0,0);
+    lcd.print("Loi");
+    return ;
+  }
+  lcd.setCursor(0,0);
+  lcd.print("            ");
+  lcd.setCursor(0,0);
+  lcd.print("thao ngon tay ra");
+  while (p != FINGERPRINT_NOFINGER) {
+    p = finger.getImage();
+  }
+  lcd.setCursor(0,0);
+  lcd.print("              ");
+  lcd.setCursor(0,0);
+  lcd.print("dat lai ngon tay");
+  while (p != FINGERPRINT_OK) {
+    p = finger.getImage();
+  }
+  p = finger.image2Tz(2);
+  if (p != FINGERPRINT_OK){
+    lcd.setCursor(0,0);
+    lcd.print("            ");
+    lcd.setCursor(0,0);
+    lcd.print("Loi");
+    return ;
+  }
+  p = finger.createModel();
+  if (p != FINGERPRINT_OK)  return -1;
+  p = finger.storeModel(id);
+  if (p != FINGERPRINT_OK)  return -1;   
+  lcd.setCursor(0,0);
+  lcd.print("                   ");
+  lcd.setCursor(0,0);
+  lcd.print("da luu xong"); 
+  delay(3000);
+  number =0;
+}
+
+
+ void drop()
+{
+  lcd.setCursor(0,0);
+  delay(10);
+  lcd.print("vui long doi    ");
+  digitalWrite(number+21,LOW);
+  while(digitalRead(11)==1&&digitalRead(10)==1)
+  {
+    delay(10);
+  }
+  digitalWrite(number+21,HIGH);
+}
+void hienthi()
+  { 
+    String stringNumber = String(number);
+    if(number <10)
+    {
+      lcd.setCursor(2,1);
+      lcd.print(stringNumber);
+      lcd.setCursor(1,1);
+      lcd.print("0");
+    }
+    else 
+    {
+      lcd.setCursor(1,1);
+      lcd.print(stringNumber);
+    }
+  }
+
 void setup() {
-  
+  Serial.begin(9600);
   lcd.init();                    
   lcd.backlight();
   finger.begin(57600);
   delay(5);
   if (finger.verifyPassword()) {
     lcd.setCursor(0,0);
-    lcd.print("Nhap van tay");
+    lcd.print("Nhap van tay   ");
   } else {
     lcd.setCursor(0,0);
     lcd.print("Khong tim thay cam bien van tay");
@@ -53,15 +157,27 @@ void setup() {
   
 }
 void loop() {  
-  if (verifyFingerprint() ==1)
-  {
-    int ID = finger.fingerID;
-    lcd.setCursor(0,0);
-    lcd.print("Nhap so    ");
-    lcd.setCursor(1,2);
+   Serial.println("pressed");
+   int flag =0;
+   lcd.setCursor(0,0);
+   lcd.print("Nhap van tay    ");
+   lcd.setCursor(1,1);
     lcd.print("00");
+   int fingerVerify =0;
+   while(fingerVerify !=1)
+  {
+    fingerVerify=verifyFingerprint();
+    delay(10);
+    Serial.println(fingerVerify);
+  }
+    
+    int ID = finger.fingerID; 
+    Serial.println(ID);
     while(1)
     {
+      lcd.setCursor(0,0);
+      lcd.print("Nhap so        ");
+      int flag = 0;
       char temp = keypad.getKey();
  
       if ((int)keypad.getState() ==  PRESSED) {
@@ -69,7 +185,7 @@ void loop() {
         {
           key = temp;
           String keystring = String(key);
-          if(key !='*' && key != '#'&& key != "A")
+          if(key !='*' && key != '#'&& key != 'A' && key != 'B')
           {
             if (number ==0)
             {
@@ -90,57 +206,18 @@ void loop() {
           }
           else if (key == 'A')
           {
-            break;
+            number =0;
+            flag =1;
+          }
+          else if (key == 'B' && ID ==1)
+          {
+            enrollFingerprint();
           }
         }     
         hienthi();    
       }
+      if(flag==1) break;
     }
-   }
-   delay(100);
-}
-  void hienthi()
-  { 
-    String stringNumber = String(number);
-    if(number <10)
-    {
-      lcd.setCursor(2,1);
-      lcd.print(stringNumber);
-      lcd.setCursor(1,1);
-      lcd.print("0");
-    }
-    else 
-    {
-      lcd.setCursor(1,1);
-      lcd.print(stringNumber);
-    }
-  }
- void drop()
-{
-  lcd.setCursor(0,0);
-  lcd.print("vui long doi");
-  digitalWrite(number+21,LOW);
-  while(digitalRead(11)==1&&digitalRead(10)==1)
-  {
     delay(10);
-  }
-  digitalWrite(number+21,HIGH);
-  lcd.setCursor(0,0);
-  lcd.print("            ");
-  number = 0;
-}
-int verifyFingerprint() {
-  uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK)  return -1;
-
-  p = finger.image2Tz();
-  if (p != FINGERPRINT_OK)  return -1;
-
-  p = finger.fingerFastSearch();
-  if (p != FINGERPRINT_OK)  return -1;
-
-  p = finger.confidence ;
-  if( p <191) return -1;
-
-  return 1;
-}
+   }
+  
