@@ -149,7 +149,7 @@ void setup() {
   }
   pinMode(10,INPUT);
   pinMode(11,INPUT);
-  for(int i= 22;i<49;i++)
+  for(int i= 22;i<50;i++)
   {
     pinMode(i,OUTPUT);
     digitalWrite(i,HIGH);
@@ -157,7 +157,6 @@ void setup() {
   
 }
 void loop() {  
-   Serial.println("pressed");
    int flag =0;
    lcd.setCursor(0,0);
    lcd.print("Nhap van tay    ");
@@ -168,11 +167,9 @@ void loop() {
   {
     fingerVerify=verifyFingerprint();
     delay(10);
-    Serial.println(fingerVerify);
   }
     
     int ID = finger.fingerID; 
-    Serial.println(ID);
     while(1)
     {
       lcd.setCursor(0,0);
@@ -184,6 +181,7 @@ void loop() {
         if (temp != 0) 
         {
           key = temp;
+          Serial.println(key);
           String keystring = String(key);
           if(key !='*' && key != '#'&& key != 'A' && key != 'B')
           {
@@ -202,7 +200,16 @@ void loop() {
           }
           else if (key == '#')
           {
-            drop();
+            if(number>28||number<1)
+            {
+              lcd.setCursor(0,0);
+              lcd.print("So khong hop le           ");
+              delay(3000);
+            }
+            else
+            {
+              drop();
+            }
           }
           else if (key == 'A')
           {
@@ -211,7 +218,15 @@ void loop() {
           }
           else if (key == 'B' && ID ==1)
           {
-            enrollFingerprint();
+            if(number<1||number>127)
+            {
+              lcd.setCursor(0,0);
+              lcd.print("So khong hop le       ");
+            }
+            else
+            {
+              enrollFingerprint();
+            }
           }
         }     
         hienthi();    
