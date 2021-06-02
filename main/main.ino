@@ -1,3 +1,4 @@
+//#include <TimerOne.h>
 #include <Keypad.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
@@ -13,6 +14,7 @@ int holdDelay = 700; //Thời gian trễ để xem là nhấn 1 nút nhă�
 int n = 3; // 
 int state = 0; //nếu state =0 ko nhấn,state =1 nhấn thời gian nhỏ , state = 2 nhấn giữ lâu
 char key = 0;
+int flag = 0;
 
 
  
@@ -110,12 +112,24 @@ void enrollFingerprint()
   delay(10);
   lcd.print("vui long doi    ");
   digitalWrite(number+21,LOW);
+  int i = 0;
   while(digitalRead(11)==1&&digitalRead(10)==1)
   {
     delay(10);
+    i++;
+    if(i == 500)
+    {
+      lcd.setCursor(0,0);
+      lcd.print("San pham da het hang    ");
+      delay(3000);
+      break;
+    }
   }
   digitalWrite(number+21,HIGH);
 }
+
+
+
 void hienthi()
   { 
     String stringNumber = String(number);
@@ -131,7 +145,18 @@ void hienthi()
       lcd.setCursor(1,1);
       lcd.print(stringNumber);
     }
-  }
+}
+
+  
+//void outOfStock_handle
+//{
+  //lcd.setCursor(0,0);
+  //lcd.print("San pham da het hang    ");
+  //flag = 1;
+//}
+
+
+
 
 void setup() {
   Serial.begin(9600);
@@ -147,6 +172,8 @@ void setup() {
     lcd.print("Khong tim thay cam bien van tay");
     while (1) { delay(1); }
   }
+  //Timer1.initialize(5000000);
+  //Timer1.attachInterrupt(outOfStock_handle);
   pinMode(10,INPUT);
   pinMode(11,INPUT);
   for(int i= 22;i<50;i++)
