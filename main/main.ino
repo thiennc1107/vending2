@@ -47,11 +47,33 @@ int verifyFingerprint() {
 
   return 1;
 }
+void dropSecond(int ID)
+{
+  lcd.setCursor(0,0);
+  lcd.print("vui long doi    ");
+  Serial.println(ID);
+  if (Serial.available() > 0) {
+    // read the incoming byte:
+    String data = Serial.readString();
+    if(data = "hethang")
+    {
+      lcd.setCursor(0,0);
+      lcd.print("San pham da het hang    ");
+      delay(3000);
+    }
+    else
+    {
+      lcd.setCursor(0,0);
+      lcd.print("xong          ");
+      delay(3000);
+    }
+  }
+} 
+
 
 void enrollFingerprint()
 {
   int id = number;
-  Serial.println(id);
   if(id>127){
     lcd.setCursor(0,0);
     lcd.print("qua tai bo nho");
@@ -147,15 +169,6 @@ void hienthi()
     }
 }
 
-  
-//void outOfStock_handle
-//{
-  //lcd.setCursor(0,0);
-  //lcd.print("San pham da het hang    ");
-  //flag = 1;
-//}
-
-
 
 
 void setup() {
@@ -208,7 +221,6 @@ void loop() {
         if (temp != 0) 
         {
           key = temp;
-          Serial.println(key);
           String keystring = String(key);
           if(key !='*' && key != '#'&& key != 'A' && key != 'B')
           {
@@ -236,6 +248,7 @@ void loop() {
             else
             {
               drop();
+              dropSecond(ID);
             }
           }
           else if (key == 'A')
