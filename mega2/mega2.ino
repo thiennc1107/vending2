@@ -31,8 +31,8 @@ void loop() {
   // reply only when you receive data:
   if (Serial.available() > 0) {
     // read the incoming byte:
-    String data = Serial.readString();
-    int number = data.toInt();
+    //String data = Serial.readString();
+    int number = Serial.read();
     drop(number);
   }
 
