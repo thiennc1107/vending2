@@ -55,7 +55,7 @@ void dropSecond(int ID)
   if (Serial.available() > 0) {
     // read the incoming byte:
     String data = Serial.readString();
-    if(data = "hethang")
+    if(data == "hethang")
     {
       lcd.setCursor(0,0);
       lcd.print("San pham da het hang    ");
@@ -150,7 +150,7 @@ void enrollFingerprint()
     }
   }
   digitalWrite(number+21,HIGH);
-  if(flag = 1)
+  if(flag == 0)
   {
      lcd.setCursor(0,0);
     lcd.print("done              ");
