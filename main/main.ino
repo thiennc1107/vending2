@@ -51,7 +51,8 @@ void dropSecond(int ID)
 {
   lcd.setCursor(0,0);
   lcd.print("vui long doi    ");
-  Serial.print(ID);
+  String signal = String(ID);
+  Serial.println(ID);
   if (Serial.available() > 0) {
     // read the incoming byte:
     String data = Serial.readString();
