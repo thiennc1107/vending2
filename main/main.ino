@@ -56,8 +56,7 @@ void dropSecond(int ID)
   Serial.println(ID);
   String data = "";
   while (Serial.available() > 0) {
-    String data = Serial.readString();
-    if(data!="") break;
+    delay(50);
   }
     // read the incoming byte:
     if(data == "hethang")
