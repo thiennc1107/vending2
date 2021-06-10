@@ -34,6 +34,7 @@ void loop() {
     //String data = Serial.readString();
     int number = Serial.read();
     drop(number);
+    Serial.println(number);
   }
 
     
