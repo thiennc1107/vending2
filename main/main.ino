@@ -53,7 +53,9 @@ void dropSecond(int ID)
   lcd.print("vui long doi    ");
   String signal = String(ID);
   Serial.println(ID);
-  if (Serial.available() > 0) {
+  while (!(Serial.available() > 0)) {
+    delay(10);
+  }
     // read the incoming byte:
     String data = Serial.readString();
     if(data == "hethang")
@@ -68,7 +70,7 @@ void dropSecond(int ID)
       lcd.print("xong          ");
       delay(3000);
     }
-  }
+  
 } 
 
 
