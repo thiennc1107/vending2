@@ -55,7 +55,7 @@ void dropSecond(int ID)
   String signal = String(ID);
   Serial.println(ID);
   String data = "";
-  while (Serial.available() > 0) {
+  while (!(Serial.available() > 0)) {
     delay(50);
   }
     // read the incoming byte:
