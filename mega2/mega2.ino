@@ -1,5 +1,6 @@
 void drop(int number)
 {
+  bool flag = 0;
   digitalWrite(number+21,LOW);
   int i = 0;
   while(digitalRead(11)==1&&digitalRead(10)==1)
@@ -10,11 +11,15 @@ void drop(int number)
     {
       Serial.println("hethang");
       delay(3000);
+      flag = 1;
       break;
     }
   }
-  Serial.println("xong");
   digitalWrite(number+21,HIGH);
+  if(flag=1)
+  {
+    Serial.println("xong");
+  }
 }
 
 
@@ -34,7 +39,6 @@ void loop() {
     //String data = Serial.readString();
     int number = Serial.read();
     drop(number);
-    Serial.println(number);
   }
 
     

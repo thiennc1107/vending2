@@ -51,7 +51,7 @@ void dropSecond(int ID)
 {
   lcd.setCursor(0,0);
   lcd.print("vui long doi    ");
-  Serial.println(ID);
+  Serial.print(ID);
   if (Serial.available() > 0) {
     // read the incoming byte:
     String data = Serial.readString();
@@ -130,6 +130,7 @@ void enrollFingerprint()
 
  void drop()
 {
+  bool flag=0;
   lcd.setCursor(0,0);
   delay(10);
   lcd.print("vui long doi    ");
@@ -143,11 +144,18 @@ void enrollFingerprint()
     {
       lcd.setCursor(0,0);
       lcd.print("San pham da het hang    ");
+      flag = 1;
       delay(3000);
       break;
     }
   }
   digitalWrite(number+21,HIGH);
+  if(flag = 1)
+  {
+     lcd.setCursor(0,0);
+    lcd.print("done              ");
+    delay(3000);
+  }
 }
 
 
