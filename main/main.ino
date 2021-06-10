@@ -49,15 +49,17 @@ int verifyFingerprint() {
 }
 void dropSecond(int ID)
 {
+
   lcd.setCursor(0,0);
   lcd.print("vui long doi    ");
   String signal = String(ID);
   Serial.println(ID);
-  while (!(Serial.available() > 0)) {
-    delay(10);
+  String data = "";
+  while (Serial.available() > 0) {
+    String data = Serial.readString();
+    if(data!="") break;
   }
     // read the incoming byte:
-    String data = Serial.readString();
     if(data == "hethang")
     {
       lcd.setCursor(0,0);
