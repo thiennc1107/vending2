@@ -59,22 +59,22 @@ void dropSecond(int ID)
      if (Serial.available() > 0) {
     // read the incoming byte:
     data = Serial.readString();
-    break;
-    }
-  }
-    // read the incoming byte:
     if(data == "hethang")
     {
       lcd.setCursor(0,0);
       lcd.print("San pham da het hang    ");
       delay(3000);
+      break;
     }
-    else
+    if(data=="xong")
     {
       lcd.setCursor(0,0);
       lcd.print("xong          ");
       delay(3000);
+      break;
     }
+    }
+  }
   
 } 
 
