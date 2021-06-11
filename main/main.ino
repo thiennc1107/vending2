@@ -55,6 +55,7 @@ void dropSecond(int ID)
   String signal = String(ID);
   Serial.println(ID);
   String data = "";
+  delay(1000);
   while (!(Serial.available() > 0)) {
     delay(50);
   }
