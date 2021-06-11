@@ -39,7 +39,6 @@ void loop() {
     // read the incoming byte:
     String data = Serial1.readString();
     int number = data.toInt();
-    Serial.print(data);
     drop(number);
   }
 
