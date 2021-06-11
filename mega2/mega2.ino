@@ -1,3 +1,4 @@
+int stock[4][5];
 void drop(int number)
 {
   bool flag = 0;
@@ -22,6 +23,12 @@ void drop(int number)
   }
 }
 
+void handle()
+{
+  
+}
+
+
 
 void setup()
 {
@@ -32,6 +39,14 @@ void setup()
   }
   Serial1.begin(9600);
   Serial.begin(9600);
+  for(int i=0;i<4;i++)
+  {
+    stock[i][0] = 1;
+    for(int j=1;j<5;j++)
+    {
+      stock[i][j] =7;
+    }
+  }
 }
 void loop() {
   // reply only when you receive data:

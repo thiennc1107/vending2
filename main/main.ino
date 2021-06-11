@@ -240,7 +240,7 @@ void loop() {
         {
           key = temp;
           String keystring = String(key);
-          if(key !='*' && key != '#'&& key != 'A' && key != 'B')
+          if(key !='*' && key != '#'&& key != 'A' && key != 'B'&key != 'C')
           {
             if (number ==0)
             {
@@ -266,8 +266,11 @@ void loop() {
             else
             {
               drop();
-              dropSecond(ID);
             }
+          }
+          else if (key =='C')
+          {
+            dropSecond(ID);
           }
           else if (key == 'A')
           {
