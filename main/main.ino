@@ -56,9 +56,9 @@ void dropSecond(int ID)
   Serial.println(ID);
   String data = "";
   while (1) {
-     if (Serial1.available() > 0) {
+     if (Serial.available() > 0) {
     // read the incoming byte:
-    data = Serial1.readString();
+    data = Serial.readString();
     break;
     }
   }
