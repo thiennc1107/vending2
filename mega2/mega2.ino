@@ -9,16 +9,16 @@ void drop(int number)
     i++;
     if(i == 500)
     {
-      Serial1.println("hethang");
+      Serial1.write("hethang");
       delay(3000);
       flag = 1;
       break;
     }
   }
   digitalWrite(number+21,HIGH);
-  if(flag=1)
+  if(flag=0)
   {
-    Serial1.println("xong");
+    Serial1.write("xong");
   }
 }
 

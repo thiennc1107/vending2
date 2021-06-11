@@ -59,7 +59,7 @@ void dropSecond(int ID)
      if (Serial2.available() > 0) {
     // read the incoming byte:
     data = Serial2.readString();
-    Serial.print(data);
+    Serial.println(data);
     if(data == "hethang")
     {
       lcd.setCursor(0,0);
