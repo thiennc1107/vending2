@@ -53,12 +53,13 @@ void dropSecond(int ID)
   lcd.setCursor(0,0);
   lcd.print("vui long doi    ");
   String signal = String(ID);
-  Serial.println(ID);
+  Serial2.println(ID);
   String data = "";
   while (1) {
-     if (Serial.available() > 0) {
+     if (Serial2.available() > 0) {
     // read the incoming byte:
-    data = Serial.readString();
+    data = Serial2.readString();
+    Serial.print(data);
     if(data == "hethang")
     {
       lcd.setCursor(0,0);
@@ -188,6 +189,7 @@ void hienthi()
 
 
 void setup() {
+  Serial2.begin(9600);
   Serial.begin(9600);
   lcd.init();                    
   lcd.backlight();
