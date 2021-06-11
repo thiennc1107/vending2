@@ -16,7 +16,7 @@ void drop(int number)
     }
   }
   digitalWrite(number+21,HIGH);
-  if(flag=0)
+  if(flag==0)
   {
     Serial1.write("xong");
   }
