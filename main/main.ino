@@ -172,7 +172,7 @@ void enrollFingerprint()
 void hienthi()
   { 
     String stringNumber = String(number);
-    lcd.setCursor(1,1);
+    lcd.setCursor(3,1);
     lcd.print("   ");
     lcd.setCursor(3,1);
     lcd.print(stringNumber);
