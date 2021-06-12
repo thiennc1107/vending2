@@ -1,5 +1,8 @@
 int stock[4][4];
 int col[4];
+int temp;
+int tempRow;
+int tempID;
 void drop(int number)
 {
   bool flag = 0;
@@ -11,8 +14,8 @@ void drop(int number)
     i++;
     if(i == 500)
     {
-      Serial1.write("hethang");
-      delay(3000);
+      drop(findStock(tempID));    
+      col[tempRow]++;
       flag = 1;
       break;
     }
@@ -27,13 +30,19 @@ void drop(int number)
 int findStock(int ID)
 {
   Serial.println(ID);
-  int row = ID/25;
+  int  row = ID/25;
   Serial.println(row);
   if(stock[row][col[row]] ==0&&col[row]<3) 
   {
     col[row]++;
   }
+  else
+  {
+    Serial1.write("hethang");
+  }
   Serial.println(col[row]);
+  tempID = ID;
+  tempRow = row;
   stock[row][col[row]]--;
   Serial.println(stock[row][col[row]]);
   Serial.println(row*4+col[row]+1);
