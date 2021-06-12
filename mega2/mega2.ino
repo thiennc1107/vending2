@@ -26,6 +26,7 @@ void drop(int number)
 
 int findStock(int ID)
 {
+  Serial.println(ID);
   int row = ID/25;
   Serial.println(row);
   if(stock[row][col[row]] ==0) 
