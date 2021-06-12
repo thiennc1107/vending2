@@ -29,8 +29,8 @@ int findStock(int ID)
   int row = ID/25;
   if(stock[row][col[row]] ==0) 
   col[row]++;
-  drop(row*0+col[row]);
   stock[row][col[row]]--;
+  return (row*0+col[row]);
 }
 
 
@@ -59,7 +59,9 @@ void loop() {
     // read the incoming byte:
     String data = Serial1.readString();
     int number = data.toInt();
-    findStock(number);
+    int i =findStock(number);
+    Serial.print(i);
+    drop(i);
   }
 
     
