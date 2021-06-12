@@ -1,4 +1,5 @@
-int stock[4][5];
+int stock[4][4];
+int col[4];
 void drop(int number)
 {
   bool flag = 0;
@@ -23,9 +24,13 @@ void drop(int number)
   }
 }
 
-void handle()
+int findStock(int ID)
 {
-  
+  int row = ID/20;
+  if(stock[row][col[row]] ==0) 
+  col[row]++;
+  drop(row*0+col[row]);
+  stock[row][col[row]]--;
 }
 
 
@@ -41,8 +46,8 @@ void setup()
   Serial.begin(9600);
   for(int i=0;i<4;i++)
   {
-    stock[i][0] = 1;
-    for(int j=1;j<5;j++)
+    col[i] = 0;
+    for(int j=0;j<4;j++)
     {
       stock[i][j] =7;
     }

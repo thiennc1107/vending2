@@ -246,9 +246,13 @@ void loop() {
             {
               number = number + keystring.toInt();
             }
-            else if(number<10 && number>0)
+            else if(number<9 && number>0)
             {
               number = number*10 + keystring.toInt();
+            }
+            else if(number<100 && number>9)
+            {
+              number = number*100 + keystring.toInt();
             }
           }
           else if (key =='*')
