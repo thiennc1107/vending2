@@ -27,11 +27,15 @@ void drop(int number)
 int findStock(int ID)
 {
   int row = ID/25;
+  Serial.println(row);
   if(stock[row][col[row]] ==0) 
   {
     col[row]++;
   }
+  Serial.println(col[row]);
   stock[row][col[row]]--;
+  Serial.println(stock[row][col[row]]--);
+  Serial.println(row*0+col[row]);
   return (row*0+col[row]);
 }
 
@@ -61,9 +65,7 @@ void loop() {
     // read the incoming byte:
     String data = Serial1.readString();
     int number = data.toInt();
-    int i =findStock(number);
-    Serial.println(i);
-    drop(i);
+    drop(findStock(number));
   }
 
     
