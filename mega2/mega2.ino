@@ -35,8 +35,8 @@ int findStock(int ID)
   }
   Serial.println(col[row]);
   stock[row][col[row]]--;
-  Serial.println(stock[row][col[row]]--);
-  Serial.println(row*0+col[row]);
+  Serial.println(stock[row][col[row]]);
+  Serial.println(row*0+col[row]+1);
   return (row*0+col[row]);
 }
 
