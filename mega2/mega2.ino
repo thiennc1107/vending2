@@ -16,8 +16,10 @@ void drop(int number)
     {
       if(col[tempRow]<3)
       {
+        digitalWrite(number+21,HIGH);
         drop(findStock(tempID));    
         col[tempRow]++;
+        flag = 1;
         break;
       }
       else
