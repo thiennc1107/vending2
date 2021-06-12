@@ -60,7 +60,7 @@ void loop() {
     String data = Serial1.readString();
     int number = data.toInt();
     int i =findStock(number);
-    Serial.print(i);
+    Serial.println(i);
     drop(i);
   }
 
