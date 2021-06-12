@@ -28,7 +28,9 @@ int findStock(int ID)
 {
   int row = ID/25;
   if(stock[row][col[row]] ==0) 
-  col[row]++;
+  {
+    col[row]++;
+  }
   stock[row][col[row]]--;
   return (row*0+col[row]);
 }
