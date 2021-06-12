@@ -29,15 +29,15 @@ int findStock(int ID)
   Serial.println(ID);
   int row = ID/25;
   Serial.println(row);
-  if(stock[row][col[row]] ==0) 
+  if(stock[row][col[row]] ==0&&col[row]<3) 
   {
     col[row]++;
   }
   Serial.println(col[row]);
   stock[row][col[row]]--;
   Serial.println(stock[row][col[row]]);
-  Serial.println(row*0+col[row]+1);
-  return (row*0+col[row]);
+  Serial.println(row*4+col[row]+1);
+  return (row*4+col[row]+1);
 }
 
 
