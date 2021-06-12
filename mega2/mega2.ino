@@ -14,9 +14,18 @@ void drop(int number)
     i++;
     if(i == 500)
     {
-      drop(findStock(tempID));    
-      col[tempRow]++;
-      break;
+      if(col[tempRow]<3)
+      {
+        drop(findStock(tempID));    
+        col[tempRow]++;
+        break;
+      }
+      else
+      {
+        Serial1.write("hethang");
+        flag = 1;
+        break;
+      }
     }
   }
   digitalWrite(number+21,HIGH);
@@ -29,16 +38,13 @@ void drop(int number)
 int findStock(int ID)
 {
   Serial.println(ID);
-  int  row = ID/25;
+  int row = ID/25;
   Serial.println(row);
   if(stock[row][col[row]] ==0&&col[row]<3) 
   {
     col[row]++;
   }
-  else
-  {
-    Serial1.write("hethang");
-  }
+  
   Serial.println(col[row]);
   tempID = ID;
   tempRow = row;
