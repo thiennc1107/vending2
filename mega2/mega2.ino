@@ -26,7 +26,7 @@ void drop(int number)
 
 int findStock(int ID)
 {
-  int row = ID/20;
+  int row = ID/25;
   if(stock[row][col[row]] ==0) 
   col[row]++;
   drop(row*0+col[row]);
