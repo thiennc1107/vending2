@@ -259,7 +259,7 @@ void loop() {
             }
             else if(number<100 && number>9)
             {
-              number = number*100 + keystring.toInt();
+              number = number*10 + keystring.toInt();
             }
           }
           else if (key =='*')
