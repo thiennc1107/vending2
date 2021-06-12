@@ -16,7 +16,6 @@ void drop(int number)
     {
       drop(findStock(tempID));    
       col[tempRow]++;
-      flag = 1;
       break;
     }
   }
