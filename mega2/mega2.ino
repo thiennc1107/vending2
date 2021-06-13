@@ -1,11 +1,7 @@
 int stock[4][4];
 int col[4];
-int temp;
-int tempRow;
-int tempID;
-void drop(int number)
+bool drop(int number)
 {
-  bool flag = 0;
   digitalWrite(number+21,LOW);
   int i = 0;
   while(digitalRead(11)==1&&digitalRead(10)==1)
@@ -14,30 +10,17 @@ void drop(int number)
     i++;
     if(i == 500)
     {
-      if(col[tempRow]<3)
-      {
-        digitalWrite(number+21,HIGH);
-        drop(findStock(tempID+1));    
-        col[tempRow]++;
-        flag = 1;
-        break;
-      }
-      else
-      {
-        Serial1.write("hethang");
-        flag = 1;
-        break;
-      }
+     digitalWrite(number+21,HIGH);
+     return 0;
+     
     }
   }
   digitalWrite(number+21,HIGH);
-  if(flag==0)
-  {
-    Serial1.write("xong");
-  }
+  Serial1.write("xong");
+  return 1;
 }
 
-int findStock(int ID)
+void findStock(int ID)
 {
   Serial.println(ID);
   int row = ID/25;
@@ -48,12 +31,23 @@ int findStock(int ID)
   }
   
   Serial.println(col[row]);
-  tempID = ID;
-  tempRow = row;
   stock[row][col[row]]--;
   Serial.println(stock[row][col[row]]);
   Serial.println(row*4+col[row]+1);
-  return (row*4+col[row]+1);
+  bool flag = drop(row*4+col[row]+1);
+  if(flag==0)
+  {
+    if(col[row]<3)
+    {
+      col[row]++;
+      drop(row*4+col[row]+1);
+    }
+    else
+    {
+      Serial1.write("hethang");
+    }
+  }
+  
 }
 
 
@@ -82,7 +76,7 @@ void loop() {
     // read the incoming byte:
     String data = Serial1.readString();
     int number = data.toInt();
-    drop(findStock(number));
+    findStock(number);
   }
 
     
