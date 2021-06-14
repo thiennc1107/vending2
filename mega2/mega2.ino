@@ -35,12 +35,12 @@ void findStock(int ID)
   Serial.println(stock[row][col[row]]);
   Serial.println(row*4+col[row]+1);
   bool flag = drop(row*4+col[row]+1);
-  if(flag==0)
+  while(flag==0)
   {
     if(col[row]<3)
     {
       col[row]++;
-      drop(row*4+col[row]+1);
+      flag = drop(row*4+col[row]+1);
     }
     else
     {
