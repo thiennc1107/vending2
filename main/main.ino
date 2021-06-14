@@ -288,7 +288,7 @@ void loop() {
             number =0;
             flag =1;
           }
-          else if (key == 'B' && ID ==1)
+          else if (key == 'B' && ID >0 && ID <10)
           {
             if(number<1||number>999)
             {
