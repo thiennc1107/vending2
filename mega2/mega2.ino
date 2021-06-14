@@ -45,6 +45,7 @@ void findStock(int ID)
     else
     {
       Serial1.write("hethang");
+      break;
     }
   }
   
