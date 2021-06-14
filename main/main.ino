@@ -290,7 +290,7 @@ void loop() {
           }
           else if (key == 'B' && ID ==1)
           {
-            if(number<1||number>127)
+            if(number<1||number>999)
             {
               lcd.setCursor(0,0);
               lcd.print("So khong hop le       ");
