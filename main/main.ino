@@ -83,7 +83,7 @@ void dropSecond(int ID)
 void enrollFingerprint()
 {
   int id = number;
-  if(id>127){
+  if(id>1000){
     lcd.setCursor(0,0);
     lcd.print("qua tai bo nho");
   }
