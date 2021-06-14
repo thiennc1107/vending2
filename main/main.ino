@@ -179,7 +179,7 @@ void hienthi()
       lcd.setCursor(1,1);
       lcd.print("00");
     }
-    else if(number>10&&number<100)
+    else if(number>=10&&number<100)
     {
       lcd.setCursor(2,1);
       lcd.print(stringNumber);
