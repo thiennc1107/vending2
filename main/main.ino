@@ -257,7 +257,7 @@ void loop() {
             {
               number = number*10 + keystring.toInt();
             }
-            else if(number<100 && number>10)
+            else if(number<100 && number>=10)
             {
               number = number*10 + keystring.toInt();
             }
