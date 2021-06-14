@@ -37,9 +37,9 @@ void findStock(int ID)
   bool flag = drop(row*4+col[row]+1);
   while(flag==0)
   {
+    col[row]++;
     if(col[row]<3)
     {
-      col[row]++;
       flag = drop(row*4+col[row]+1);
     }
     else
