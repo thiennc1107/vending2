@@ -23,7 +23,7 @@ bool drop(int number)
 void findStock(int ID)
 {
   Serial.println(ID);
-  int row = ID/250;
+  int row = ID/40;
   Serial.println(row);
   if(stock[row][col[row]] ==0&&col[row]<3) 
   {
@@ -38,7 +38,7 @@ void findStock(int ID)
   while(flag==0)
   {
    
-    if(col[row]<3)
+    if((col[row]<3&&row!=4)||(row==4&&col[row]<2))
     {
       col[row]++;
       flag = drop(row*4+col[row]+1);
