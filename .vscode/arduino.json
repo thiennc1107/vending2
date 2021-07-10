@@ -4,5 +4,5 @@
     "sketch": "mega2\\mega2.ino",
     "configuration": "cpu=atmega2560",
     "intelliSenseGen": "global",
-    "port": "4"
+    "port": "3"
 }
