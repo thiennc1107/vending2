@@ -80,7 +80,7 @@ void dropSecond(int ID)
 } 
 
 
-void enrollFingerprint()
+int enrollFingerprint()
 {
   int id = number;
   if(id>160){
