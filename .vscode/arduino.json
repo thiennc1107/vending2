@@ -1,8 +1,0 @@
-{
-    "board": "arduino:avr:mega",
-    "programmer": "arduino:avrisp",
-    "sketch": "mega2\\mega2.ino",
-    "configuration": "cpu=atmega2560",
-    "intelliSenseGen": "global",
-    "port": "3"
-}
